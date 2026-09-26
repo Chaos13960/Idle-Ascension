@@ -3,6 +3,7 @@ import {
   applyTick,
   ascend as ascendState,
   buyGenerator,
+  channel as channelState,
   createInitialState,
 } from '../game/engine'
 import { clearSave, loadState, saveState } from '../game/storage'
@@ -13,6 +14,7 @@ const SAVE_MS = 5_000
 
 export interface UseGame {
   state: GameState
+  channel: () => void
   buy: (id: string) => void
   ascend: () => void
   reset: () => void
@@ -52,6 +54,10 @@ export function useGame(): UseGame {
     }
   }, [])
 
+  const channel = useCallback(() => {
+    setState((prev) => channelState(prev))
+  }, [])
+
   const buy = useCallback((id: string) => {
     setState((prev) => buyGenerator(prev, id))
   }, [])
@@ -65,5 +71,5 @@ export function useGame(): UseGame {
     setState(createInitialState())
   }, [])
 
-  return { state, buy, ascend, reset }
+  return { state, channel, buy, ascend, reset }
 }

@@ -37,6 +37,21 @@ export function ascensionMultiplier(state: GameState): number {
   return 1 + state.ascensionPoints * ASCENSION_BONUS_PER_POINT
 }
 
+/** Essence granted per manual "Channel" click, scaled by ascension bonus. */
+export function clickPower(state: GameState): number {
+  return 1 * ascensionMultiplier(state)
+}
+
+/** Manually channel Essence (the click action that bootstraps every run). */
+export function channel(state: GameState): GameState {
+  const gained = clickPower(state)
+  return {
+    ...state,
+    essence: state.essence + gained,
+    totalEssence: state.totalEssence + gained,
+  }
+}
+
 /** Total Essence produced per second across every generator, after bonuses. */
 export function productionPerSecond(state: GameState): number {
   const mult = ascensionMultiplier(state)

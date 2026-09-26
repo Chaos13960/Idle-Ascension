@@ -13,7 +13,7 @@ import { GENERATORS } from './game/generators'
 import { useGame } from './hooks/useGame'
 
 export default function App() {
-  const { state, buy, ascend, reset } = useGame()
+  const { state, channel, buy, ascend, reset } = useGame()
   const [confirmingReset, setConfirmingReset] = useState(false)
 
   const rate = useMemo(() => productionPerSecond(state), [state])
@@ -40,6 +40,12 @@ export default function App() {
         <div className="essence-panel__rate" data-testid="rate">
           {formatRate(rate)}
         </div>
+        <button className="channel-button" onClick={channel} data-testid="channel">
+          <span className="channel-button__spark" aria-hidden>
+            ✦
+          </span>
+          Channel Essence
+        </button>
       </section>
 
       <section className="ascension" aria-label="Ascension">

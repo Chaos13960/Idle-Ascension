@@ -87,6 +87,36 @@
   font-variant-numeric: tabular-nums;
 }
 
+.channel-button {
+  margin-top: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.6rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #10121f;
+  background: linear-gradient(120deg, var(--accent-2), var(--accent));
+  border: none;
+  border-radius: 99px;
+  cursor: pointer;
+  box-shadow: 0 10px 30px -10px rgba(34, 211, 238, 0.6);
+  transition: transform 0.08s ease, filter 0.12s ease;
+  user-select: none;
+}
+
+.channel-button:hover {
+  filter: brightness(1.08);
+}
+
+.channel-button:active {
+  transform: scale(0.95);
+}
+
+.channel-button__spark {
+  font-size: 1.1rem;
+}
+
 .ascension {
   padding: 1.25rem;
   border-radius: 18px;

@@ -7,6 +7,8 @@ import {
   bulkCost,
   buyGenerator,
   canAscend,
+  channel,
+  clickPower,
   createInitialState,
   generatorCost,
   maxAffordable,
@@ -67,6 +69,22 @@ describe('maxAffordable', () => {
     // bulkCost(0..6) ≈ 88 ≤ 100 < bulkCost(0..7) ≈ 111 => 6 affordable.
     expect(maxAffordable(state, 'apprentice')).toBe(6)
     expect(maxAffordable({ ...createInitialState(), essence: 9 }, 'apprentice')).toBe(0)
+  })
+})
+
+describe('channel', () => {
+  it('grants base click power on a fresh run', () => {
+    const state = createInitialState()
+    expect(clickPower(state)).toBe(1)
+    const next = channel(state)
+    expect(next.essence).toBe(1)
+    expect(next.totalEssence).toBe(1)
+  })
+
+  it('scales click power with the ascension multiplier', () => {
+    const state = { ...createInitialState(), ascensionPoints: 10 }
+    expect(clickPower(state)).toBeCloseTo(2) // ×(1 + 10*0.1)
+    expect(channel(state).essence).toBeCloseTo(2)
   })
 })
 
